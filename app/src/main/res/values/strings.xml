@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MvvmComposeTest</string>
+    <string name="please_enter_email_password_to_login"><![CDATA[Please Enter email & password\n to login]]></string>
+    <string name="user_login">User Login</string>
+    <string name="login">Login</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_username">Enter UserName</string>
+</resources>
