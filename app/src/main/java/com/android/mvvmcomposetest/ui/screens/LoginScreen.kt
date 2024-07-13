@@ -10,54 +10,62 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.android.mvvmcomposetest.R
-import com.android.mvvmcomposetest.ui.widgets.LabeledCheckbox
+import com.android.mvvmcomposetest.data.local.entities.User
+import com.android.mvvmcomposetest.ui.activities.main.MainViewModel
 import com.android.mvvmcomposetest.ui.widgets.LoginField
 import com.android.mvvmcomposetest.ui.widgets.PasswordField
 
 @Composable
-fun LoginForm(modifier: Modifier = Modifier) {
+fun LoginForm(
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = hiltViewModel(),
+    onLogin: (String) -> Unit = {}
+) {
+    var userName by remember { mutableStateOf(TextFieldValue("")) }
+    var password by remember { mutableStateOf(TextFieldValue("")) }
     Surface {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(horizontal = 30.dp)
         ) {
             LoginField(
-                value = stringResource(id = R.string.login),
-                onChange = { },
-                modifier = Modifier.fillMaxWidth()
+                value = userName.text, label = stringResource(id = R.string.login), onChange = {
+                    userName = TextFieldValue(it, selection = TextRange(it.length))
+                }, modifier = modifier.fillMaxWidth()
             )
             Spacer(modifier = modifier.height(8.dp))
-            PasswordField(value = "password",
-                onChange = { },
-                submit = { },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-            LabeledCheckbox(
-                label = "Remember Me", onCheckChanged = { }, isChecked = false
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                content = {
-                    Text("Login")
+            PasswordField(value = password.text,
+                label = stringResource(id = R.string.password),
+                onChange = {
+                    password = TextFieldValue(it, selection = TextRange(it.length))
                 },
-                enabled = true,
-                shape = RoundedCornerShape(8.dp),
-                onClick = {
-
-                }
+                submit = { onLogin(userName.text) },
+                modifier = modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = modifier.height(16.dp))
+            Button(modifier = modifier.fillMaxWidth(), content = {
+                Text("Login")
+            }, enabled = true, shape = RoundedCornerShape(8.dp), onClick = {
+                viewModel.insertUser(User(username= userName.text, password= password.text))
+                onLogin(userName.text)
+            })
         }
     }
 }

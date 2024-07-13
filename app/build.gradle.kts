@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.hilt)
-
+    id ("kotlin-kapt")
 }
 
 android {
@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.android.mvvmcomposetest"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -67,10 +67,20 @@ dependencies {
 
 
     implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
+    implementation (libs.room.ktx)
+    kapt(libs.room.compiler)
 
     implementation(libs.hilt.android)
     annotationProcessor(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // Retrofit
+    implementation(libs.squareup.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
+    implementation(libs.logging.interceptor)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
