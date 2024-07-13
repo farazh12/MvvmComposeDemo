@@ -36,6 +36,15 @@ class AppDaoTest {
         assertEquals(user, insertedUser)
     }
 
+    @Test
+    fun testDeleteUser_shouldDeleteUserFromDatabase() = runBlocking {
+        val user = User(1, "Test User", password= "password")
+        appDao.insert(user)
+        appDao.deleteUser(user)
+        val deleteUser = appDao.getUserById(1)
+        assertEquals(null, deleteUser)
+    }
+
     @After
     fun tearDown() {
         database.close()
