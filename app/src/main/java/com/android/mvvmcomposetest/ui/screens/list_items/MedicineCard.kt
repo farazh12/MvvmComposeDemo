@@ -11,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.android.mvvmcomposetest.data.local.entities.Medicine
+import com.android.mvvmcomposetest.data.network.models.AssociatedDrug
 
 @Composable
-fun MedicineCard(medicine: Medicine, onClick: () -> Unit) {
+fun MedicineCard(medicine: AssociatedDrug, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

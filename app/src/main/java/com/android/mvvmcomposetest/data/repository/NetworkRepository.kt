@@ -7,22 +7,17 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class NetworkRepository @Inject constructor(
-    private val apiService: ApiService, val isNetworkConnected: Boolean
+    private val apiService: ApiService, private val isNetworkConnected: Boolean
 ) {
 
-    private val TAG = "Repository"
-
-
-    fun fetchAllMedicines(): Flow<ApiResponse<Any>> {
+    fun fetchAllMedicines(): Flow<ApiResponse> {
         return if (isNetworkConnected) {
             flow {
                 emit(apiService.fetchAllMedicines())
             }
         } else {
             flow {
-                val apiResponse = ApiResponse<Any>(
-                    code = 401, message = "Unauthorized", data = null
-                )
+                val apiResponse = ApiResponse(emptyList())
                 emit(apiResponse)
             }
         }

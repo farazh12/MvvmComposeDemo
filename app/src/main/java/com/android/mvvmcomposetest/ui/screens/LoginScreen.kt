@@ -21,18 +21,13 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.android.mvvmcomposetest.R
-import com.android.mvvmcomposetest.data.local.entities.User
-import com.android.mvvmcomposetest.ui.activities.main.MainViewModel
 import com.android.mvvmcomposetest.ui.widgets.LoginField
 import com.android.mvvmcomposetest.ui.widgets.PasswordField
 
 @Composable
 fun LoginForm(
-    modifier: Modifier = Modifier,
-    viewModel: MainViewModel = hiltViewModel(),
-    onLogin: (String) -> Unit = {}
+    modifier: Modifier = Modifier, onLogin: (String, String) -> Unit = { _, _ -> }
 ) {
     var userName by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
@@ -42,7 +37,7 @@ fun LoginForm(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .fillMaxSize()
-                .padding(horizontal = 30.dp)
+                .padding(horizontal = 10.dp)
         ) {
             LoginField(
                 value = userName.text, label = stringResource(id = R.string.login), onChange = {
@@ -50,12 +45,13 @@ fun LoginForm(
                 }, modifier = modifier.fillMaxWidth()
             )
             Spacer(modifier = modifier.height(8.dp))
-            PasswordField(value = password.text,
+            PasswordField(
+                value = password.text,
                 label = stringResource(id = R.string.password),
                 onChange = {
                     password = TextFieldValue(it, selection = TextRange(it.length))
                 },
-                submit = { onLogin(userName.text) },
+                submit = { onLogin(userName.text, password.text) },
                 modifier = modifier.fillMaxWidth()
             )
 
@@ -63,8 +59,7 @@ fun LoginForm(
             Button(modifier = modifier.fillMaxWidth(), content = {
                 Text("Login")
             }, enabled = true, shape = RoundedCornerShape(8.dp), onClick = {
-                viewModel.insertUser(User(username= userName.text, password= password.text))
-                onLogin(userName.text)
+                onLogin(userName.text, password.text)
             })
         }
     }

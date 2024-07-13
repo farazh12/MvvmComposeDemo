@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("14db8290-75c7-4fcd-a399-fe7b3100b450")
-    suspend fun fetchAllMedicines(): ApiResponse<Any>
+    suspend fun fetchAllMedicines(): ApiResponse
 }

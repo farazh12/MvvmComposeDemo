@@ -65,6 +65,9 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
+    //coroutines
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
 
     implementation(libs.room.runtime)
     implementation (libs.room.ktx)
@@ -80,7 +83,6 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.gson)
     implementation(libs.logging.interceptor)
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
