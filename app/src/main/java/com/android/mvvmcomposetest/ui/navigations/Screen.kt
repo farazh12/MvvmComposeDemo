@@ -1,6 +1,6 @@
 package com.android.mvvmcomposetest.ui.navigations
 
-import com.android.mvvmcomposetest.data.network.models.AssociatedDrug
+import com.android.mvvmcomposetest.data.network.models.Drug
 
 sealed class Screen(val route: String, val title:String) {
     object Login : Screen("login", "Login")
@@ -9,6 +9,6 @@ sealed class Screen(val route: String, val title:String) {
     }
 
     object Detail : Screen("detail/{medicine}", "Detail") {
-        fun createRoute(medicine: AssociatedDrug) = "detail/${medicine.name}"
+        fun createRoute(medicine: Drug) = "detail/${medicine.name}"
     }
 }

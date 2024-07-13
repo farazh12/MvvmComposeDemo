@@ -34,16 +34,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
     var topBarTitle by mutableStateOf("Login")
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MvvmComposeTestTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(),
-                    topBar = {
-                        TopAppBar(title = { Text(text = topBarTitle) })
-                    }) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+                    TopAppBar(title = { Text(text = topBarTitle) })
+                }) { innerPadding ->
                     val navController = rememberNavController()
                     AppNavGraph(
                         modifier = Modifier.padding(innerPadding),
@@ -53,6 +53,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        viewModel.fetchMedicines()
     }
 
     @Composable
@@ -72,10 +73,10 @@ class MainActivity : ComponentActivity() {
             composable(Screen.Home.route) { backStackEntry ->
                 topBarTitle = Screen.Home.title
                 val username = backStackEntry.arguments?.getString("username") ?: ""
-                // Assume getMedicines() fetches the medicines from a JSON or mock API
+                // Assume getMedicines() fetches the medicines.json from a JSON or mock API
                 Box(modifier = modifier) {
                     HomeScreen(
-                        modifier = Modifier, username = username,
+                        modifier = Modifier, username = username, viewModel = viewModel
                     ) { medicine ->
                         navController.navigate(Screen.Detail.createRoute(medicine))
                     }
@@ -86,7 +87,11 @@ class MainActivity : ComponentActivity() {
                 val medicineName = backStackEntry.arguments?.getString("medicine") ?: ""
                 // Assume findMedicine() finds a medicine by name from the list
                 Box(modifier = modifier) {
-                    MedicineDetailScreen(modifier = Modifier, medicineName = medicineName)
+                    MedicineDetailScreen(
+                        modifier = Modifier,
+                        medicineName = medicineName,
+                        viewModel = viewModel
+                    )
                 }
             }
         }

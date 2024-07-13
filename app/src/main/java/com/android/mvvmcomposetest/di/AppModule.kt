@@ -9,6 +9,7 @@ import com.android.mvvmcomposetest.data.local.database.AppDatabase
 import com.android.mvvmcomposetest.data.network.api.ApiService
 import com.android.mvvmcomposetest.data.repository.LocalRepository
 import com.android.mvvmcomposetest.data.repository.NetworkRepository
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +20,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -64,9 +66,13 @@ object AppModule {
             writeTimeout(60L, TimeUnit.SECONDS)
             connectTimeout(60L, TimeUnit.SECONDS)
         }
-
-        val retrofit = Retrofit.Builder().baseUrl(providesBaseUrl()).client(okHttpClient.build())
-            .addConverterFactory(GsonConverterFactory.create()).build()
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val retrofit = Retrofit.Builder().baseUrl(providesBaseUrl())
+            .client(okHttpClient.build())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
 
         return retrofit.create(ApiService::class.java)
     }
