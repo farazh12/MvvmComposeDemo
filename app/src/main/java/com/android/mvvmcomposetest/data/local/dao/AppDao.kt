@@ -1,5 +1,6 @@
 package com.android.mvvmcomposetest.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,4 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
+
+    @Query("SELECT * FROM users WHERE userId = :userId")
+    suspend fun getUserById(userId: Int) : User
 }
