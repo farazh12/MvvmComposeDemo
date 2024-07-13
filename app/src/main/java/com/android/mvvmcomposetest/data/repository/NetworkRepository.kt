@@ -17,8 +17,8 @@ class NetworkRepository @Inject constructor(
             }
         } else {
             flow {
-                val apiResponse = ApiResponse(emptyList())
-                emit(apiResponse)
+                val modifiedApiResponse = ApiResponse(emptyList())
+                emit(modifiedApiResponse)
             }
         }
     }

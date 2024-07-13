@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.android.mvvmcomposetest.data.network.models.AssociatedDrug
 import com.android.mvvmcomposetest.data.network.models.Drug
 import com.android.mvvmcomposetest.ui.activities.main.MainViewModel
 import com.android.mvvmcomposetest.ui.screens.list_items.MedicineCard
@@ -28,7 +29,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     username: String,
     viewModel: MainViewModel = hiltViewModel(),
-    onMedicineClick: (Drug) -> Unit
+    onMedicineClick: (AssociatedDrug) -> Unit
 ) {
     val medicines by viewModel.medicines.collectAsState()
     val greeting = when (LocalTime.now().hour) {

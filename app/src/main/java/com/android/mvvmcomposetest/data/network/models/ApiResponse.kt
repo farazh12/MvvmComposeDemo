@@ -3,24 +3,38 @@ package com.android.mvvmcomposetest.data.network.models
 import com.google.gson.annotations.SerializedName
 
 data class ApiResponse(
-    @SerializedName("problems") val problems: List<Problem> = arrayListOf()
+    val problems: List<Problem>
 )
 
 data class Problem(
-    @SerializedName("medications") val medications: List<Drug> = arrayListOf(),
-    @SerializedName("labs") val labs: List<Lab> = arrayListOf()
+    val Diabetes: List<DiabetesItem>? = null, val Asthma: List<AsthmaItem>? = null
+)
+
+data class DiabetesItem(
+    val medications: List<Medication>?, val labs: List<Lab>?
+)
+
+data class Medication(
+    val medicationsClasses: List<MedicationClass>
+)
+
+data class MedicationClass(
+    val className: List<Drug>?, val className2: List<Drug>?
 )
 
 data class Drug(
-    @SerializedName("name")
-    val name: String = "",
-    @SerializedName("dose")
-    val dose: String = "",
-    @SerializedName("strength")
-    val strength: String = ""
+    @SerializedName("associatedDrug") val associatedDrug: List<AssociatedDrug>?,
+    @SerializedName("associatedDrug#2") val associatedDrug2: List<AssociatedDrug>?
+)
+
+data class AssociatedDrug(
+    val name: String, val dose: String, val strength: String
 )
 
 data class Lab(
-    @SerializedName("missing_field")
-    val missing_field: String = ""
+    val missing_field: String
+)
+
+data class AsthmaItem(
+    val any: Any
 )
