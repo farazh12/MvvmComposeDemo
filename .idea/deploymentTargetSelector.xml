@@ -11,6 +11,12 @@
       <SelectionState runConfigName="testInsertUser_shouldInsertUserIntoDatabase()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="testDeleteUser_shouldDeleteUserFromDatabase()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="onLogin_login_status_successfullyLogin()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

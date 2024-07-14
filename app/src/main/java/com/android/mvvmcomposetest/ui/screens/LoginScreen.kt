@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -42,7 +43,7 @@ fun LoginForm(
             LoginField(
                 value = userName.text, label = stringResource(id = R.string.login), onChange = {
                     userName = TextFieldValue(it, selection = TextRange(it.length))
-                }, modifier = modifier.fillMaxWidth()
+                }, modifier = modifier.fillMaxWidth().testTag("username")
             )
             Spacer(modifier = modifier.height(8.dp))
             PasswordField(
@@ -52,7 +53,7 @@ fun LoginForm(
                     password = TextFieldValue(it, selection = TextRange(it.length))
                 },
                 submit = { onLogin(userName.text, password.text) },
-                modifier = modifier.fillMaxWidth()
+                modifier = modifier.fillMaxWidth().testTag("password")
             )
 
             Spacer(modifier = modifier.height(16.dp))
