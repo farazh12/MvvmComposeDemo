@@ -78,6 +78,7 @@ dependencies {
 
     implementation(libs.room.runtime)
     implementation (libs.room.ktx)
+    implementation(libs.androidx.junit.ktx)
     kapt(libs.room.compiler)
 
     implementation(libs.hilt.android)
@@ -98,5 +99,22 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    androidTestImplementation("android.arch.core:core-testing:1.1.1")
+    androidTestImplementation(libs.core.testing)
+
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.49")
+    kaptAndroidTest ("com.google.dagger:hilt-android-compiler:2.49")
+    kaptAndroidTest ("com.google.dagger:hilt-compiler:2.49")
+
+    // For unit testing
+    testImplementation ("com.google.dagger:hilt-android-testing:2.49")
+    kaptTest ("com.google.dagger:hilt-compiler:2.49")
+
+    androidTestImplementation ("androidx.test:core:1.6.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.mockito:mockito-core:4.0.0")
+    testImplementation ("org.mockito:mockito-inline:3.9.0")
+    testImplementation ("org.mockito:mockito-android:3.9.0")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
+
 }
