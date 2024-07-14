@@ -51,14 +51,9 @@ class LoginTest {
         val password = rule.onNodeWithTag("password")
         username.performTextInput("User")
         password.performTextInput("test123")
-
         assertEquals("Next", username.imeActionValue())
         assertEquals("User", username.currentText())
-
-//        username.printToLog("Login")
-//        password.printToLog("Login")
         assertEquals("Done", password.imeActionValue())
-
         assertEquals("•••••••", password.currentText())
 
 

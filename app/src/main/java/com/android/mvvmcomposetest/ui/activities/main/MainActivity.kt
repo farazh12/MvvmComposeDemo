@@ -88,9 +88,7 @@ class MainActivity : ComponentActivity() {
                 // Assume findMedicine() finds a medicine by name from the list
                 Box(modifier = modifier) {
                     MedicineDetailScreen(
-                        modifier = Modifier,
-                        medicineName = medicineName,
-                        viewModel = viewModel
+                        modifier = Modifier, medicineName = medicineName, viewModel = viewModel
                     )
                 }
             }
