@@ -22,6 +22,11 @@ android {
             useSupportLibrary = true
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 
     buildTypes {
         release {
